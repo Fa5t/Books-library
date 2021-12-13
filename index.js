@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             Books.push(book);
             localStorage.setItem('books', JSON.stringify(Books));
-            console.log( localStorage.getItem('books') );
+            uploadBooks();
         } else {
             alert('Введите название и текст книги');
         }
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             Books.push(book);
             localStorage.setItem('books', JSON.stringify(Books));
-            console.log( localStorage.getItem('books') );
+            uploadBooks();
         });
     })
 
