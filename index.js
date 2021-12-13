@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
             listBooks.appendChild(book);
             book.setAttribute('draggable', 'true');
 
+            arr[i].readIt ? book.style.backgroundColor = 'grey' : book.style.backgroundColor = 'white';
+
             book.innerHTML = `
                 <div class="book__left">
                             <p class="book__left__text">- ${arr[i].name}</p>
@@ -102,29 +104,53 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>`;
             } 
         }
-
         document.querySelectorAll('.book__right').forEach( event => {
             event.addEventListener('click', e => {
                 let date = arr[e.target.className.toString().slice(-1)].date;
-
+    
                 if(e.target.classList[1] == 'btn-med') {
                     readIt(date);
                 }
-
+    
                 if(e.target.classList[1] == 'btn-little') {
                     deleteBook(date);
                 }
-
+    
                 if(e.target.classList[1] == 'btn-red') {
                     editBook(date);
                 }
-
+    
                 if(e.target.classList[1] == 'btn-big') {
                     changeReadit(date);
                 }
             })
         })
+        
     }
+
+    document.querySelectorAll('.book__right').forEach( event => {
+        event.addEventListener('click', e => {
+            let date = arr[e.target.className.toString().slice(-1)].date;
+
+            if(e.target.classList[1] == 'btn-med') {
+                readIt(date);
+            }
+
+            if(e.target.classList[1] == 'btn-little') {
+                deleteBook(date);
+            }
+
+            if(e.target.classList[1] == 'btn-red') {
+                editBook(date);
+                console.log(e.target);
+            }
+
+            if(e.target.classList[1] == 'btn-big') {
+                changeReadit(date);
+                console.log(e.target);
+            }
+        })
+    })
 
     function readIt(data) {
         let arr = sortArr();
@@ -145,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let num = arr.indexOf(deleteArr);
         arr.splice(num, 1);
         localStorage.setItem('books', JSON.stringify(arr));
-        uploadBooks();
+        location.reload();
     }
 
     function editBook(data) {
@@ -175,10 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
         let arr = sortArr();
         let changeArr = arr.find( item => item.date == data);
         let num = arr.indexOf(changeArr);
+        let color = '';
         console.log(arr[num].readIt);
         arr[num].readIt = !arr[num].readIt
         localStorage.setItem('books', JSON.stringify(arr));
-        uploadBooks();
+        location.reload();
+
+        //return arr[num].readIt ? color='green' : color='red';
     }
 
     function sortArr() {
