@@ -65,9 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function uploadBooks() {
         let favBooks = document.querySelector('.main__block__favourite-books__book');
         let listBooks = document.querySelector('.main__block__list-books__book');
+        const dragNdrop = document.querySelectorAll('.dragNdrop');
         favBooks.innerHTML = '';
         listBooks.innerHTML = '';    
-        let arr = sortArr(); 
+        let arr = sortArr();
 
         for(let i = 0; i < arr.length; i++) {
             let book = document.createElement('div');
@@ -124,8 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     changeReadit(date);
                 }
             })
-        })
-        
+        })  
     }
 
     document.querySelectorAll('.book__right').forEach( event => {
@@ -206,8 +206,74 @@ document.addEventListener('DOMContentLoaded', function() {
         arr[num].readIt = !arr[num].readIt
         localStorage.setItem('books', JSON.stringify(arr));
         location.reload();
+    }
 
-        //return arr[num].readIt ? color='green' : color='red';
+    function drag() {
+        const listBooks = document.querySelectorAll('.main__block__list-books__book');
+        const favBooks = document.querySelectorAll('.main__block__favourite-books__book');
+        const books = document.querySelectorAll('.book');
+        const dropFav = document.querySelector('.main__block__favourite-books__drag-n-drop-area');
+        const listDrop = document.querySelector('.main__block__list-books__drag-n-drop-area');
+
+        books.forEach(book => {
+            book.addEventListener('dragstart', e => {
+                e.target.classList.add('selected');
+                //console.log(e.target);
+                console.log('start');
+            })
+        })
+
+        books.forEach(book => {
+            book.addEventListener('dragend', e => {
+                e.target.classList.remove('selected');
+                //console.log(e.target);
+                console.log('end');
+            })
+        })
+
+        dropFav.addEventListener('dragover', e => {
+            e.preventDefault();
+        })
+
+        listDrop.addEventListener('dragover', e => {
+            e.preventDefault();
+        })
+
+        dropFav.addEventListener('drop', e => {
+            e.preventDefault();
+            books.forEach( book => {
+                if(book.classList[2] === 'selected') { 
+                    let date = book.getAttribute('data-date');
+                    let arr = JSON.parse(localStorage.getItem('books'));
+                    let newNum = arr.find(item => item.date == date);
+                    let num = arr.indexOf(newNum);
+                    arr[num].favorite = true;
+                    localStorage.setItem('books', JSON.stringify(arr));
+                    location.reload();
+                } else
+                {
+                    console.log('error');
+                }
+            })
+        })
+
+        listDrop.addEventListener('drop', e => {
+            e.preventDefault();
+            books.forEach( book => {
+                if(book.classList[2] === 'selected') { 
+                    let date = book.getAttribute('data-date');
+                    let arr = JSON.parse(localStorage.getItem('books'));
+                    let newNum = arr.find(item => item.date == date);
+                    let num = arr.indexOf(newNum);
+                    arr[num].favorite = false;
+                    localStorage.setItem('books', JSON.stringify(arr));
+                    location.reload();
+                } else
+                {
+                    console.log('error');
+                }
+            })
+        })
     }
 
     function sortArr() {
@@ -233,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sortArr = readArr.concat(unreadArr);
         localStorage.setItem('books', JSON.stringify(sortArr));
         return sortArr;
-}
+    }
 
     function takeArr () {
         let newBooks = [];
@@ -242,4 +308,5 @@ document.addEventListener('DOMContentLoaded', function() {
         return newBooks;
     }
     uploadBooks();
+    drag();
 });

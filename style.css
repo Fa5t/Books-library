@@ -101,7 +101,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    
+    cursor: move;
     width: 98%;
     margin: 0 auto;
     margin-top: 10px;
