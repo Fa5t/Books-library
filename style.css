@@ -50,6 +50,10 @@ body {
     width: 80px;
 }
 
+.btn-red {
+    width: 80px;
+}
+
 .btn-big {
     width: 130px;
 }
@@ -156,4 +160,15 @@ body {
     border: 1px solid black;
     margin: 5px 1%;
     padding-left: 5px;
+}
+
+.main-right__read__book > form{
+    display: flex;
+    flex-direction: column;
+}
+
+.main-right__read__book > form >textarea {
+    background-color:burlywood;
+    width: 600px;
+    height: 790px;
 }

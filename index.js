@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             uploadForm.style.display = 'none';             
     });
 
-    const Books = localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [];
+    let Books = localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [];
 
     document.querySelector('.main__block-add-books__write-btn').addEventListener('click', function() {
         let name = document.querySelector('.main__block-add-books__write-name').value;
@@ -75,12 +75,14 @@ document.addEventListener('DOMContentLoaded', function() {
             book.classList.add(`book${i}`);
             book.setAttribute('data-date', arr[i].date);
             listBooks.appendChild(book);
+            book.setAttribute('draggable', 'true');
+
             book.innerHTML = `
                 <div class="book__left">
                             <p class="book__left__text">- ${arr[i].name}</p>
                         </div>
                         <div class="book__right">
-                            <button class="btn btn-med btn-med${i}">РЕД.</button>
+                            <button class="btn btn-red btn-red${i}">РЕД.</button>
                             <button class="btn btn-big btn-big${i}">ПРОЧИТАЛ</button>
                             <button class="btn btn-med btn-med${i}">ЧИТАТЬ</button>
                             <button class="btn btn-little btn-little${i}">Х</button>
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p class="book__left__text">- ${arr[i].name}</p>
                         </div>
                         <div class="book__right">
-                            <button class="btn btn-med btn-med${i}">РЕД.</button>
+                            <button class="btn btn-red btn-red${i}">РЕД.</button>
                             <button class="btn btn-big btn-big${i}">ПРОЧИТАЛ</button>
                             <button class="btn btn-med btn-med${i}">ЧИТАТЬ</button>
                             <button class="btn btn-little btn-little${i}">Х</button>
@@ -103,15 +105,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.book__right').forEach( event => {
             event.addEventListener('click', e => {
+                let date = arr[e.target.className.toString().slice(-1)].date;
 
                 if(e.target.classList[1] == 'btn-med') {
-                    let date = arr[e.target.className.toString().slice(-1)].date;
                     readIt(date);
                 }
 
                 if(e.target.classList[1] == 'btn-little') {
-                    let date = arr[e.target.className.toString().slice(-1)].date;
                     deleteBook(date);
+                }
+
+                if(e.target.classList[1] == 'btn-red') {
+                    editBook(date);
+                }
+
+                if(e.target.classList[1] == 'btn-big') {
+                    changeReadit(date);
                 }
             })
         })
@@ -133,8 +142,41 @@ document.addEventListener('DOMContentLoaded', function() {
     function deleteBook(data) {
         let arr = sortArr();
         let deleteArr = arr.find( item => item.date == data);
-        let newArr = arr.indexOf(deleteArr);
-        arr.splice(newArr, 1);
+        let num = arr.indexOf(deleteArr);
+        arr.splice(num, 1);
+        localStorage.setItem('books', JSON.stringify(arr));
+        uploadBooks();
+    }
+
+    function editBook(data) {
+        let arr = sortArr();
+        let read = arr.find( item => item.date == data);
+        const readText = document.querySelector('.main-right__read');
+        readText.innerHTML = ''
+        let readBook = document.createElement('div');
+        readBook.classList.add('main-right__read__book');
+        readText.appendChild(readBook);
+        let form = document.createElement('form');
+        let newText = document.createElement('textarea');
+        newText.innerHTML = read.text;
+        let btn = document.createElement('input');
+        readBook.appendChild(form);
+        form.appendChild(newText);
+        form.appendChild(btn);
+        btn.setAttribute('type', 'button');
+        btn.setAttribute('value', 'Save');
+        btn.addEventListener('click', () => {
+            arr[arr.indexOf(read)].text = newText.value;
+            localStorage.setItem('books', JSON.stringify(arr));
+        })
+    }
+
+    function changeReadit(data) {
+        let arr = sortArr();
+        let changeArr = arr.find( item => item.date == data);
+        let num = arr.indexOf(changeArr);
+        console.log(arr[num].readIt);
+        arr[num].readIt = !arr[num].readIt
         localStorage.setItem('books', JSON.stringify(arr));
         uploadBooks();
     }
