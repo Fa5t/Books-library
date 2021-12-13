@@ -68,7 +68,7 @@ body {
 
 .main__block__white {
     background-color: white;
-   overflow: auto;
+    /*overflow: auto;*/
     flex-grow: 1;
 }
 
@@ -78,6 +78,16 @@ body {
     height: 50%;
 }
 
+.main__block__favourite-books__book,
+.main__block__list-books__book {
+    overflow: auto;
+    width: 98%;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 30px;
+    flex-grow: 1;
+    height: 70%;
+}
 .book {
     display: flex;
     flex-direction: row;
@@ -121,12 +131,18 @@ body {
     height: 35%;
 }
 
-.main__block-add-books__write {
+.main__block-add-books__write,
+.main__block-add-books__upload {
     display: flex;
     flex-direction: column;
 }
 
-.main__block-add-books__write-name {
+.main__block-add-books__upload {
+    display: none;
+}
+
+.main__block-add-books__write-name,
+.main__block-add-books__upload-name {
     width: 98%;
     height: 20px;
     border: 1px solid black;

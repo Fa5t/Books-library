@@ -14,18 +14,20 @@
 
             <div class="main__block">
                 <h2>Любимые книги</h2>
-                <div class="main__block__favourite-books main__block__white">   
-                    <div class="book">
-                        <div class="book__left">
-                            <p class="book__left__text">- Book number 1</p>
-                        </div>
-                        <div class="book__right">
-                            <button class="btn btn-med">РЕД.</button>
-                            <button class="btn btn-big">ПРОЧИТАЛ</button>
-                            <button class="btn btn-med">ЧИТАТЬ</button>
-                            <button class="btn btn-little">Х</button>
-                        </div>
-                    </div> 
+                <div class="main__block__favourite-books main__block__white">
+                    <div class="main__block__favourite-books__book">
+                        <div class="book">
+                            <div class="book__left">
+                                <p class="book__left__text">- Book number 1</p>
+                            </div>
+                            <div class="book__right">
+                                <button class="btn btn-med">РЕД.</button>
+                                <button class="btn btn-big">ПРОЧИТАЛ</button>
+                                <button class="btn btn-med">ЧИТАТЬ</button>
+                                <button class="btn btn-little">Х</button>
+                            </div>
+                        </div> 
+                    </div>   
                     <div class="main__block__favourite-books__drag-n-drop-area dragNdrop">
                         <p class="dragNdrop__text">DROP DOWN AREA</p>
                     </div>
@@ -35,7 +37,19 @@
             <div class="main__block">
                 <h2>Список книг</h2>
                 <div class="main__block__list-books main__block__white">
-                    
+                    <div class="main__block__list-books__book">
+                        <div class="book">
+                            <div class="book__left">
+                                <p class="book__left__text">- Book number 1</p>
+                            </div>
+                            <div class="book__right">
+                                <button class="btn btn-med">РЕД.</button>
+                                <button class="btn btn-big">ПРОЧИТАЛ</button>
+                                <button class="btn btn-med">ЧИТАТЬ</button>
+                                <button class="btn btn-little">Х</button>
+                            </div>
+                        </div> 
+                    </div>   
                     <div class="main__block__list-books__drag-n-drop-area dragNdrop">   
                         <p class="dragNdrop__text">DROP DOWN AREA</p>                 
                     </div>
@@ -47,15 +61,20 @@
                 <h2>Добавить книгу</h2>
                 <div class="main__block-add-books main__block__white">
                     <div class="radio">
-                        <input type="radio" name="addBook" id="uploadBook" value="uploadBook"> Загрузить книгу
+                        <input type="radio" class="radio-button" name="addBook" id="uploadBook"> Загрузить книгу
                     </div> 
                     <div class="radio">
-                        <input type="radio" name="addBook" id="writeBook" value="writeBook" checked> Написать книгу
+                        <input type="radio" class="radio-button" name="addBook" id="writeBook" checked> Написать книгу
                     </div>    
                     <form action="" class="main__block-add-books__write">
                         <input class="main__block-add-books__write-name" type="text" name="book-name" placeholder="Введите название книги">
                         <textarea class="main__block-add-books__write-text" name="book-text" placeholder="Введите текст книги"></textarea>
                         <input class="main__block-add-books__write-btn" type="button" value="Upload">
+                    </form>
+                    <form action="" method="post" class="main__block-add-books__upload" enctype="multipart/form-data">
+                        <input class="main__block-add-books__upload-name" type="text" name="book-name" placeholder="Введите название книги">
+                        <input class="main__block-add-books__upload-file" type="file" name="book-file">
+                        <input class="main__block-add-books__upload-btn" type="submit" value="Upload">
                     </form>
                 </div>
             </div>            
@@ -63,7 +82,7 @@
 
         <div class="main main-right">
             <div class="main-right__read">
-
+                
             </div>
         </div>
     </div>
