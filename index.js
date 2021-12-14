@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let Books = localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [];
 
-    document.querySelector('.main__block-add-books__write-btn').addEventListener('click', function() {
+    document.querySelector('.main__block-add-books__write-btn').addEventListener('click', () => {
         let name = document.querySelector('.main__block-add-books__write-name').value;
         let text = document.querySelector('.main__block-add-books__write-text').value;
 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             Books.push(book);
             localStorage.setItem('books', JSON.stringify(Books));
-            uploadBooks();
+            location.reload();
         } else {
             alert('Введите название и текст книги');
         }
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             Books.push(book);
             localStorage.setItem('books', JSON.stringify(Books));
-            uploadBooks();
+            location.reload();
         });
     })
 
